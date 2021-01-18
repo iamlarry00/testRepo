@@ -13,10 +13,10 @@
 						<a href="#egn_sel" class="tog_open">
 							<span class="egn_logo"><i class="bi naver">네이버검색</i></span><i class="btn_egn">검색엔진선택</i>
 							<!-- 검색엔진 로고 태그 종류
-							<i class="bi naver">네이버검색</i> 
-							<i class="bi daum">다음검색</i> 
-							<i class="bi nate">네이트검색</i> 
-							<i class="bi zum">줌검색</i> 
+							<i class="bi naver">네이버검색</i>
+							<i class="bi daum">다음검색</i>
+							<i class="bi nate">네이트검색</i>
+							<i class="bi zum">줌검색</i>
 							-->
 						</a>
 					</div>

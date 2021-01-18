@@ -4,9 +4,9 @@
 Program NAME : ohing PHP Framework 1
 Content : index 엔진 1.0
 Version : 1.0
-File Name : 
+File Name :
 Charset : utf-8
-Directory : 
+Directory :
 URI :
 ---------------------------------------------------------------------------------------------------
 개발자 : 권오용
@@ -25,7 +25,7 @@ $start_time = microtime(); //프로그램실행속도측정 - 테스트를 위�
 
 
 ### 디폴트 설정 파일(전페이지 공통 사항 파일)###
-include_once $_SERVER['DOCUMENT_ROOT']."/System/cfg/global.inc.php"; 
+include_once $_SERVER['DOCUMENT_ROOT']."/System/cfg/global.inc.php";
 
 
 
@@ -35,7 +35,7 @@ params();
 $dirname = ThisDirName($dirname);
 
 ### 프로세스의 디렉토리 경로등 기본 설정 상수파일###
-include_once $_SERVER['DOCUMENT_ROOT']."/System/cfg/proc_default.cfg.php"; 
+include_once $_SERVER['DOCUMENT_ROOT']."/System/cfg/proc_default.cfg.php";
 
 
 
@@ -43,7 +43,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/System/cfg/proc_default.cfg.php";
 $proc_file = SITE_PUB_PATH.SITE_PROC_PATH."/".$dirname."/".$dirname.".proc.php";
 
 ### 해당 프로세스 호출###
-if(file_exists($proc_file)) { 
+if(file_exists($proc_file)) {
 	include $proc_file;
 }
 
@@ -52,6 +52,6 @@ if(file_exists($proc_file)) {
 ### 레이아웃 호출(스킨은 레이아웃 에서 호출한다)###
 include SITE_PUB_PATH.SITE_PROC_PATH."/layout/layout.inc.php";
 
-
+echo $proc_file;
 
 ?>

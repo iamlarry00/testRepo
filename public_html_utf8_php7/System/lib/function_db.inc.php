@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 /*
@@ -95,15 +95,15 @@ class Mysql
 				$msg = $ini_file."에 연결을 할 수 없습니다. DATABASE 관리자에게 문의 하세요.";
 
 			} else {
-
-				$msg = "죄송합니다. 현재 DATABASE 점검 중 입니다. 잠시 후 다시 이용해 주십시요!";
+				//echo "ini_file=$ini_file , ".$db_connect['HOSTNAME'];print_r($db_connect);exit;
+				$msg = "죄송합니다1. 현재 DATABASE 점검 중 입니다. 잠시 후 다시 이용해 주십시요!".IP_OFFICE." / ".$_SERVER['REMOTE_ADDR'];
 
 			}
 
 			PopupMsg($msg);
 			exit;
 		}
-	
+
 	  $db = @mysqli_select_db($this->conn, $db_connect['DBNAME']); // 작업대상 데이터베이스를 선택한다.
 
 		if(!$db) {
@@ -114,7 +114,7 @@ class Mysql
 
 			} else {
 
-				$msg = "죄송합니다. 현재 DATABASE 점검 중 입니다. 잠시 후 다시 이용해 주십시요!";
+				$msg = "죄송합니다2. 현재 DATABASE 점검 중 입니다. 잠시 후 다시 이용해 주십시요!";
 
 			}
 
@@ -126,7 +126,7 @@ class Mysql
 		//mysqli_query("SET NAMES 'euckr'");//캐릭터셋 해결
 
 		return TRUE;
-	
+
 	}
 
 
@@ -144,7 +144,7 @@ class Mysql
 
 			} else {
 
-				$msg = "죄송합니다. 현재 DATABASE 점검 중 입니다. 잠시 후 다시 이용해 주십시요!";
+				$msg = "죄송합니다3. 현재 DATABASE 점검 중 입니다. 잠시 후 다시 이용해 주십시요!";
 
 			}
 
@@ -387,20 +387,20 @@ class Mysql
 
 		$table = mysqli_real_escape_string($table);
 		if ( $column != '*' ) $column = mysqli_real_escape_string($column);
-	
+
 		$q = 'SELECT '.$column.' FROM ' . $table . ' LIMIT 1';
-		
+
 		$r = $this->Query($q);
-		
+
 		$result = FALSE;
 		if ( is_resource($r) ) {
 			$row = mysqli_fetch_row( $r );
 			if($row[0] != NULL) $result = $row[0];
 		}
-		
+
 		return $result;
 	}
-	
+
 
 }
 
