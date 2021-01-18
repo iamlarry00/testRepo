@@ -1,0 +1,172 @@
+<?php
+/*
+---------------------------------------------------------------------------------------------------
+Program NAME : ohing PHP skin
+Content : skin
+Version : 1.0
+File Name : 
+Charset : utf-8
+Directory : 
+URI :
+---------------------------------------------------------------------------------------------------
+개발자 : 권오용
+개발일 : 2010-12-01
+최종수정일 : 2010-12-01
+email: koy@huanworks.com
+msn:ohing80@hotmail.com
+---------------------------------------------------------------------------------------------------
+[상세설명]
+
+스킨를 처리하는 스킨 페이지
+
+방법은 두가지 
+
+1 현재 페이지에서 스킨를 생성한다
+
+
+
+
+
+
+
+
+
+
+
+2 현재 페이지에서 서브 스킨를 가져온다
+예) $p 값을 변수값으로 받아 
+
+### 해당 스킨 호출###
+include SITE_PUB_PATH.SITE_PROC_PATH."/".$dirname."/".$p."/".$dirname.".proc.php";
+
+*/
+
+
+
+/*
+------------------------------------------------------------------------------------------------------------------------------
+	[기본 스킨]
+------------------------------------------------------------------------------------------------------------------------------
+*/
+
+
+$footer_js .= <<<JS
+
+var review_on_num = 0;
+var review_bname = 'iphone_apps_review';/*디폴트 리뷰*/
+var review_url = '/System/proc/Home/home_review.proc.php';
+
+function review_on(url, bname, start){
+
+	/*리스트 갱신은 5개씩*/
+	var review_on_num_plus = 5;
+
+	if(start == '0'){
+		
+		document.getElementById('review_list_layout').innerHTML = '';
+		review_on_num = start;
+
+	}
+	
+	
+	var getdata = getHttprequest(url+'?bname='+bname+'&start='+review_on_num);
+
+
+
+	var getdata_array =  eval("("+getdata+")");
+
+	var HtmlTag = getdata_array.app_review_list;
+
+
+
+	var aHTML = [];
+
+	aHTML.push(HtmlTag);
+
+	document.getElementById('review_list_layout').innerHTML += aHTML.join("");
+
+	
+
+	review_on_num += review_on_num_plus;
+
+	review_bname = bname;
+
+	document.getElementById('set_review_menu_iphone_apps_review').src = '$img_server_path/home/set_review_menu_'+ bname +'.gif';
+
+}
+
+
+
+
+review_on(review_url , review_bname , review_on_num);
+
+/*준비중입니다.*/
+function preparation_layer_control(){
+
+	if(document.getElementById('preparation_layer').style.display=='none'){
+
+		document.getElementById('preparation_layer').style.display='';
+		document.getElementById('preparation_layer_sub').style.display='';
+
+	}else{
+
+		document.getElementById('preparation_layer').style.display='none';
+		document.getElementById('preparation_layer_sub').style.display='none';
+
+	}
+
+}
+
+JS;
+
+
+
+($_COOKIE[user][mid])? $mypage_link = "/mypage/?p=memo" : $mypage_link = "javascript:alert('로그인 후 이용해주세요.');";
+
+?>
+<!-- 준비중입니다. -->
+<div id="preparation_layer" style="display:none; width:100%; height:900px;-moz-opacity: 0.5 !important; -webkit-opacity: 0.5!important; -ms-filter:'progid:DXImageTransform.Microsoft.Alpha(Opacity=50)' !important; filter: alpha(opacity=100) !important; opacity: 0.5 !important; background-color:#000000; position:absolute; left:0px; top:0px; text-align:center; z-index:99;">
+</div>
+<div id="preparation_layer_sub" style="display:none; width:300px; height:170px;position:absolute; left:10px; top:100px; z-index:100; "><a href="javascript:preparation_layer_control();"><img src="<?=$img_server_path?>/home/btn_preparation_layer.gif" width="300" height="170" alt="" /></a></div>
+<!-- 준비중입니다. -->
+
+<div id="top_bar">
+<a href="/theme/"><img src="<?=$img_server_path?>/btn_theme_review.gif" width="101" height="26" alt="테마 앱 리뷰" class="flot_left btn_theme_review" /></a>
+<?if(!$_COOKIE[user][mid]){?>
+<a href="/login/"><img src="<?=$img_server_path?>/btn_login.gif" width="52" height="22" alt="로그인"  class="flot_right" /></a>
+<?}else{?>
+<a href="https://ssl.appstory.co.kr/?logout_prc=action"><img src="<?=$img_server_path?>/btn_logout.gif" width="63" height="22" alt="로그인"  class="flot_right" /></a>
+<?}?>
+</div>
+
+
+<div id="top_menu">
+<img src="<?=$img_server_path?>/set_top_menu1.jpg" width="320" height="77" alt="" usemap="#Maptop_menu" />
+<map name="Maptop_menu" id="Maptop_menu">
+  <area shape="rect" coords="2,2,84,75" href="/review/" alt="앱 스토리 리뷰" />
+  <area shape="rect" coords="86,2,163,75" href="/forum/" alt="스마트 포럼" />
+  <area shape="rect" coords="166,2,243,75" href="/in/" alt="앱스토리 IN" />
+  <area shape="rect" coords="247,2,317,75" href="<?=$mypage_link?>" alt="마이페이지" />
+  <!--area shape="rect" coords="86,2,163,75" href="javascript:preparation_layer_control();" alt="준비중입니다." /-->
+</map>
+</div>
+
+<div class="list_title">실시간 <span class="f12_d11a12b">최신 앱 리뷰</span></div>
+
+<div id="home_review_menu">
+<img src="<?=$img_server_path?>/home/set_review_menu_iphone_apps_review.gif" width="320" height="40" alt="" id="set_review_menu_iphone_apps_review" usemap="#Mapset_review_menu_aphone_apps_review" />
+<map name="Mapset_review_menu_aphone_apps_review" id="Mapset_review_menu_aphone_apps_review">
+  <area shape="rect" coords="1,1,95,39" href="javascript:review_on(review_url,'iphone_apps_review','0');" alt="애플" />
+  <area shape="rect" coords="95,1,223,39" href="javascript:review_on(review_url,'aphone_apps_review','0');" alt="안드로이드" />
+  <area shape="rect" coords="223,1,319,39" href="javascript:review_on(review_url,'wphone_apps_review','0');" alt="윈도우" />
+</map>
+</div>
+
+
+<div id="review_list_layout"></div>
+
+<div id="bottom_more">
+<a href="javascript:review_on(review_url, review_bname ,review_on_num);"><img src="<?=$img_server_path?>/btn_more.gif" width="298" height="31" alt="더보기" /></a>
+</div>
+
+
